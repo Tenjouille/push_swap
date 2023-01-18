@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_manip.c                                       :+:      :+:    :+:   */
+/*   list_manip_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:44:44 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/11 17:31:45 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/01/17 16:38:06 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	ft_lstsize(t_list *lst)
 
 t_list	*ft_lstlast(t_list *lst)
 {
+	if (!lst)
+		return (NULL);
 	while (lst)
 	{
 		if (!lst->next)
@@ -48,24 +50,24 @@ t_list	*ft_lstnew(int nb)
 	return (new);
 }
 
-void	ft_lstadd_back(t_list *lst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*last;
 
-	if (lst)
+	if (*lst)
 	{
-		last = ft_lstlast(lst);
+		last = ft_lstlast(*lst);
 		last->next = new;
 	}
 	else
-		lst = new;
+		*lst = new;
 }
 
-void	ft_lstadd_front(t_list *lst, t_list *new)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	t_list	*tmp;
 
-	tmp = lst;
-	lst = new;
+	tmp = *lst;
+	*lst = new;
 	new->next = tmp;
 }
