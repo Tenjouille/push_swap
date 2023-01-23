@@ -5,14 +5,16 @@ SRC = 	instructions.c \
 		algorythme_utils.c \
 		list_manip.c \
 		list_manip_utils.c \
-		parsing.c
+		parsing.c \
+		push_swap_utils.c \
+		lil_algo.c
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME): $(OBJ) push_swap.h
-	ar -rcs $(NAME) $(OBJ)
+$(NAME): $(OBJ)
+	gcc $(CFLAGS)  $(OBJ) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)

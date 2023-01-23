@@ -6,16 +6,16 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:15:52 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/18 18:11:13 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:40:04 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// void	ft_lstclear(t_list **stack)
+// void	ft_lstclear(t_stack **stack)
 // {
-// 	t_list	*current;
-// 	t_list	*tmp;
+// 	t_stack	*current;
+// 	t_stack	*tmp;
 
 // 	current = *stack;
 // 	while (current != NULL)
@@ -27,7 +27,7 @@
 // }
 // *stack = NULL;
 
-int	ft_lst_cmp(t_list *lst_a, t_list *lst_b)
+int	ft_lst_cmp(t_stack *lst_a, t_stack *lst_b)
 {
 	while (lst_a->next && lst_a->nb == lst_b->nb)
 	{
@@ -37,9 +37,9 @@ int	ft_lst_cmp(t_list *lst_a, t_list *lst_b)
 	return (lst_a->nb - lst_b->nb);
 }
 
-void	sort_list(t_list *lst)
+void	sort_list(t_stack *lst)
 {
-	t_list	*cmp;
+	t_stack	*cmp;
 
 	while (lst->next)
 	{
@@ -54,16 +54,16 @@ void	sort_list(t_list *lst)
 	}
 }
 
-t_list	*list_inputs(int ac, char **av)
+t_stack	*list_inputs(int ac, char **av)
 {
-	t_list	*stack;
-	t_list	*new;
+	t_stack	*stack;
+	t_stack	*new;
 	int		i;
 
 	stack = ft_lstnew(ft_atol(av[1]));
 	i = 2;
-	new = stack->next;
-	ft_lstadd_back(&stack, new);
+	new = NULL;
+	// ft_lstadd_back(&stack, new);
 	while (i < ac)
 	{
 		new = ft_lstnew(ft_atol(av[i]));
@@ -71,5 +71,6 @@ t_list	*list_inputs(int ac, char **av)
 		new = new->next;
 		i++;
 	}
+	new = NULL;
 	return (stack);
 }

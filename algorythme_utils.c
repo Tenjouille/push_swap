@@ -6,16 +6,74 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:29:16 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/18 11:48:38 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:35:32 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_check_order(t_list *lst)
+void	ft_push_up(t_stack **a, t_stack **b, t_stack *sorted, t_stack **cmd)
+{
+	if ((*a)->nb == ft_min(*a) || (ft_lstsize(sorted) == 6 && (*a)->nb <= ft_median(sorted)))
+		ft_pb(a, b, cmd);
+	else
+	{
+		if (ft_next_move(*a) > 0)
+		{
+			while ((*a)->nb != ft_min(*a))
+			{
+				if (ft_lstsize(sorted) == 6 && (*a)->nb <= ft_median(sorted))
+					break ;
+				ft_ra(a, cmd);
+			}
+			ft_pb(a, b, cmd);
+		}
+		else
+		{
+			while ((*a)->nb != ft_min(*a))
+			{
+				if (ft_lstsize(sorted) == 6 && (*a)->nb <= ft_median(sorted))
+					break ;
+				ft_rra(a, cmd);
+			}
+			ft_pb(a, b, cmd);
+		}
+	}
+	if (ft_lstsize(*a) > 3)
+		ft_push_up(a, b, sorted, cmd);
+}
+
+t_stack	*ft_improve(t_stack **cmd)
+{
+	t_stack	*cmp;
+	t_stack	*current;
+	t_stack	*prev;
+
+	cmp = *cmd;
+	while (cmp)
+	{
+		prev = cmp;
+		current = cmp->next;
+		while (current && (current->nb != PA && current->nb != PB))
+		{
+			if (cmp->nb == current->nb + 1 || cmp->nb == current->nb - 1)
+			{
+				cmp->nb = cmp->nb + current->nb;
+				prev->next = ft_delone(current);
+				break ;
+			}
+			current = current->next;
+			prev = prev->next;
+		}
+		cmp = cmp->next;
+	}
+	return (*cmd);
+}
+
+int	ft_check_order(t_stack *lst)
 {
 	int		min;
-	t_list	*current;
+	t_stack	*current;
 
 	if (!lst)
 		return (0);
@@ -35,10 +93,10 @@ int	ft_check_order(t_list *lst)
 	return (1);
 }
 
-int	ft_check_rev_order(t_list *lst)
+int	ft_check_rev_order(t_stack *lst)
 {
 	int		max;
-	t_list	*current;
+	t_stack	*current;
 
 	if (!lst)
 		return (0);

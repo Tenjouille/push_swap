@@ -6,17 +6,17 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:30:40 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/18 18:56:50 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:01:12 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 //ft_del_last : supprime le dernier element d'une liste (inutile pour l'instant)
-void	ft_del_last(t_list **lst)
+void	ft_del_last(t_stack **lst)
 {
 	
-	t_list	*pos;
-	t_list	*prev;
+	t_stack	*pos;
+	t_stack	*prev;
 
 	if (!*lst || !lst)
 		return ;
@@ -34,7 +34,7 @@ void	ft_del_last(t_list **lst)
 		prev->next = NULL;
 }
 //ft_median : definit la mediane de la liste triee
-int	ft_median(t_list *lst)
+int	ft_median(t_stack *lst)
 {
 	int		i;
 	int		size;
@@ -52,7 +52,7 @@ int	ft_median(t_list *lst)
 }
 
 //ft_scan : parcours la liste pour savoir s'il reste des nombre plus petit ou egal a la mediane.
-int	ft_scan(t_list *lst, int median)
+int	ft_scan(t_stack *lst, int median)
 {
 	while (lst)
 	{
@@ -63,7 +63,7 @@ int	ft_scan(t_list *lst, int median)
 	return (0);
 }
 
-void	ft_algorythm(t_list **a, t_list **b, t_list *sorted)
+void	ft_algorythm(t_stack **a, t_stack **b, t_stack *sorted, t_stack **cmd)
 {
 	int	median;
 	int	i;
@@ -72,19 +72,19 @@ void	ft_algorythm(t_list **a, t_list **b, t_list *sorted)
 	median = ft_median(sorted);
 	while ((*a)->nb <= median)
 	{
-		ft_pa(a, b);
+		ft_pb(a, b, cmd);
 		i++;
 	}
 	if ((*a)->next && (*a)->next->nb <= median)
-		ft_sa(&(*a)->nb, &(*a)->next->nb);
+		ft_sa(&(*a)->nb, &(*a)->next->nb, cmd);
 	else if (ft_scan(*a, median))
 		while((*a)->nb > median)
-			ft_rra(a);
+			ft_rra(a, cmd);
 	if (i != 0)
-		ft_algorythm(a, b, sorted);
+		ft_algorythm(a, b, sorted, cmd);
 }
 //ft_min : definit le plus petit nombre de la lise placee en parametre
-int	ft_min(t_list *lst)
+int	ft_min(t_stack *lst)
 {
 	int 	min;
 
@@ -97,15 +97,29 @@ int	ft_min(t_list *lst)
 	}
 	return (min);
 }
+
+int	ft_max(t_stack *lst)
+{
+	int	max;
+
+	max = lst->nb;
+	while (lst != NULL)
+	{
+		if (max < lst->nb)
+			max = lst->nb;
+		lst = lst->next;
+	}
+	return (max);
+}
 //ft_empty_b : renvoie dans la liste a tous les maillons de la liste b dans l'ordre croissant
-void	ft_empty_b(t_list **b_stack, t_list **a_stack, t_list *sorted)
+void	ft_empty_b(t_stack **b_stack, t_stack **a_stack, t_stack *sorted, t_stack **cmd)
 {
 	if (ft_check_rev_order(*b_stack))
 	{
 		while (*b_stack)
 		{
-			ft_pb(b_stack, a_stack);
-			ft_rra(&sorted);
+			ft_pa(b_stack, a_stack, cmd);
+			ft_rra(&sorted, cmd);
 		}
 	}
 	else
@@ -114,33 +128,45 @@ void	ft_empty_b(t_list **b_stack, t_list **a_stack, t_list *sorted)
 			return ;
 		while ((*b_stack)->nb != ft_lstlast(sorted)->nb)
 		{
-			ft_reverse_rotate(b_stack);
-			write(1, "rra\n", 4);
+			ft_rrb(b_stack, cmd);
 		}
-		ft_push (b_stack, a_stack);
-		write(1, "pb\n", 3);
+		ft_pa (b_stack, a_stack, cmd);
 		ft_reverse_rotate (&sorted);
 		if (*b_stack)
-			ft_empty_b(b_stack, a_stack, sorted);
+			ft_empty_b(b_stack, a_stack, sorted, cmd);
 	}
 }
 
-void	ft_algo_three(t_list **a_stack, t_list **b_stack, t_list *sorted)
+void	ft_algo_three(t_stack **stack, t_stack **cmd)
 {
-	if (ft_lstlast(sorted)->nb == (*a_stack)->nb)
-		ft_ra(a_stack);
-	if (sorted->nb == (*a_stack)->next->nb)
-		ft_sa(&(*a_stack)->nb, &(*a_stack)->next->nb);
-	if (ft_lstlast((*a_stack))->nb == sorted->nb)
+	if (!*stack || !stack)
+		return ;
+	if (ft_max(*stack) == (*stack)->nb)
+		ft_ra(stack, cmd);
+	if (ft_min(*stack)== (*stack)->next->nb)
+		ft_sa(&(*stack)->nb, &(*stack)->next->nb, cmd);
+	if (ft_lstlast((*stack))->nb == ft_min(*stack))
+		ft_rra(stack, cmd);
+	if (!ft_check_order(*stack))
 	{
-		ft_rra(a_stack);
-		printf("AAA\n");
+		ft_rra(stack, cmd);
+		ft_sa(&(*stack)->nb, &(*stack)->next->nb, cmd);
 	}
-	if (ft_lst_cmp(*a_stack, sorted))
+}
+
+void	ft_rev_algo_three(t_stack **stack, t_stack **cmd)
+{
+	if (!*stack || !stack)
+		return ;
+	if (ft_min(*stack) == (*stack)->nb)
+		ft_rb(stack, cmd);
+	if (ft_max(*stack) == (*stack)->next->nb)
+		ft_sb(&(*stack)->nb, &(*stack)->next->nb, cmd);
+	if (ft_lstlast((*stack))->nb == ft_max(*stack))
+		ft_rrb(stack, cmd);
+	if (!ft_check_rev_order(*stack))
 	{
-		ft_rra(a_stack);
-		ft_sa(&(*a_stack)->nb, &(*a_stack)->next->nb);
+		ft_rrb(stack, cmd);
+		ft_sb(&(*stack)->nb, &(*stack)->next->nb, cmd);
 	}
-	if (ft_lst_cmp(*a_stack, sorted))
-		ft_algo_three(a_stack, b_stack, sorted);
 }
