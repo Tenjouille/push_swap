@@ -1,5 +1,7 @@
 NAME = push_swap
-SRC = 	instructions.c \
+SRC = 	instr_global.c \
+		instr_push_n_swap.c \
+		instr_rotates.c \
 		main.c \
 		algorythme.c \
 		algorythme_utils.c \
