@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:06:13 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/23 16:46:16 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/01/25 09:01:30 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ int	ft_next_move(t_stack *lst)
 		i++;
 	}
 	cur = lst;
-	// while (cur->nb != ft_median(lst))
-	// 	cur = cur->next;
 	while (cur != ft_lstlast(lst) && cur->nb != ft_min(lst))
 	{
 		cur = cur->next;
