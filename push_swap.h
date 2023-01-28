@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 10:56:07 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/28 19:52:54 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/01/28 20:18:46 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		ft_median(t_stack *lst);
 int		ft_scan(int ref, t_stack *lst);
 int		ft_check_order(t_stack *lst);
 int		ft_check_rev_order(t_stack *lst);
-int		ft_good_first(int ref, t_stack *lst, t_stack *sorted);
 int		ft_next_move(t_stack *lst);
 void	ft_algorithm(t_stack **a, t_stack **b, t_stack **cmd);
 void	ft_push(t_stack **from_stack, t_stack **to_stack);
