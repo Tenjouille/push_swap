@@ -6,11 +6,28 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:50:53 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/24 13:29:25 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/01/27 19:37:05 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	ft_median(t_stack *lst)
+{
+	int		i;
+	int		size;
+
+	i = 0;
+	size = ft_lstsize(lst);
+	if (size % 2 == 0)
+		size--;
+	while (i < size / 2)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (lst->nb);
+}
 
 void	ft_push_up(t_stack **a, t_stack **b, t_stack *sorted, t_stack **cmd)
 {

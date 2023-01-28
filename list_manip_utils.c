@@ -6,20 +6,11 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:44:44 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/19 14:36:57 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/01/28 18:15:14 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-t_stack	*ft_delone(t_stack *lst)
-{
-	t_stack	*tmp;
-
-	tmp = lst->next;
-	free (lst);
-	return (tmp);
-}
 
 int	ft_lstsize(t_stack *lst)
 {

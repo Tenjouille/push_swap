@@ -6,20 +6,33 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:15:52 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/25 08:54:07 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:21:45 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_lst_cmp(t_stack *lst_a, t_stack *lst_b)
+t_stack	*ft_lstdelone(t_stack *lst)
 {
-	while (lst_a->next && lst_a->nb == lst_b->nb)
+	t_stack	*tmp;
+
+	tmp = lst->next;
+	free (lst);
+	return (tmp);
+}
+
+void	ft_lstclear(t_stack **lst)
+{
+	t_stack	*tmp;
+
+	if (!lst || !*lst)
+		return ;
+	while (*lst)
 	{
-		lst_a = lst_a->next;
-		lst_b = lst_b->next;
+		tmp = (*lst)->next;
+		ft_lstdelone(*lst);
+		*lst = tmp;
 	}
-	return (lst_a->nb - lst_b->nb);
 }
 
 void	sort_list(t_stack *lst)

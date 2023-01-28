@@ -6,11 +6,37 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:06:13 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/25 09:01:30 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/01/28 19:56:02 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	ft_best_rotation(t_stack *cur, t_stack **a, t_stack **cmd)
+{
+	int	r_move;
+	int	rr_move;
+	int	i;
+
+	i = -1;
+	r_move = ft_lstsize(*a);
+	rr_move = 0;
+	while (cur)
+	{
+		cur = cur->next;
+		r_move--;
+		rr_move++;
+	}
+	cur = *a;
+	while (++i < r_move)
+		cur = cur->next;
+	if (rr_move < r_move)
+		while (cur != *a)
+			ft_rra(a, cmd);
+	else
+		while (cur != *a)
+			ft_ra(a, cmd);
+}
 
 int	ft_next_move(t_stack *lst)
 {

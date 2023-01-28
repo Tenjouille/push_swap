@@ -3,14 +3,15 @@ SRC = 	instr_global.c \
 		instr_push_n_swap.c \
 		instr_rotates.c \
 		main.c \
-		algorythme.c \
-		algorythme_utils.c \
+		algorithme.c \
+		algorithme_utils.c \
 		list_manip.c \
 		list_manip_utils.c \
 		parsing.c \
 		push_swap_utils.c \
 		lil_algo.c \
-		hit_number.c
+		hit_number.c \
+		cmd_manip.c
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -g
 
