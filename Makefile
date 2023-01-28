@@ -3,8 +3,8 @@ SRC = 	instr_global.c \
 		instr_push_n_swap.c \
 		instr_rotates.c \
 		main.c \
-		algorithme.c \
-		algorithme_utils.c \
+		algorithm.c \
+		algorithm_utils.c \
 		list_manip.c \
 		list_manip_utils.c \
 		parsing.c \
