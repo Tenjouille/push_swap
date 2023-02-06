@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithme.c                                       :+:      :+:    :+:   */
+/*   algorithm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:30:40 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/28 19:55:17 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:40:21 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_sort_a(t_stack **a, t_stack **cmd)
+void	ft_sort_a(t_stack **a, t_stack **b, t_stack **cmd)
 {
 	t_stack	*cur;
 	int		i;
@@ -26,10 +26,10 @@ void	ft_sort_a(t_stack **a, t_stack **cmd)
 	}
 	if (cur->nb == ft_median(*a) || i <= ft_lstsize(*a) / 2)
 		while ((*a)->nb != ft_min(*a))
-			ft_ra(a, cmd);
+			ft_ra(a, b, cmd);
 	else
 		while ((*a)->nb != ft_min(*a))
-			ft_rra(a, cmd);
+			ft_rra(a, b, cmd);
 }
 
 void	ft_empty_b(t_stack **a, t_stack **b, t_stack **cmd)
@@ -45,13 +45,13 @@ void	ft_empty_b(t_stack **a, t_stack **b, t_stack **cmd)
 	{
 		while (cur->nb != ft_min(*a))
 			cur = cur->next;
-		ft_best_rotation(cur, a, cmd);
+		ft_best_rot(cur, a, b, cmd);
 	}
 	else
 	{
 		while (cur->nb != ft_scan((*b)->nb, *a))
 			cur = cur->next;
-		ft_best_rotation(cur, a, cmd);
+		ft_best_rot(cur, a, b, cmd);
 	}
 	if (*b)
 		ft_empty_b(a, b, cmd);
@@ -92,8 +92,8 @@ void	ft_big_algo(t_stack **a, t_stack **b, t_stack **cmd)
 	ft_pb(a, b, cmd);
 	ft_pb(a, b, cmd);
 	ft_algorithm(a, b, cmd);
-	ft_algo_three(a, cmd);
+	ft_algo_three(a, b, cmd);
 	ft_empty_b(a, b, cmd);
 	while (!ft_check_order(*a))
-		ft_sort_a(a, cmd);
+		ft_sort_a(a, b, cmd);
 }

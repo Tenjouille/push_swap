@@ -1,42 +1,69 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorythme_utils.c                                 :+:      :+:    :+:   */
+/*   algorithm_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:29:16 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/25 09:19:18 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/04 16:19:58 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*ft_improve(t_stack **cmd)
+int	ft_min(t_stack *lst)
+{
+	int	min;
+
+	min = lst->nb;
+	while (lst != NULL)
+	{
+		if (min > lst->nb)
+			min = lst->nb;
+		lst = lst->next;
+	}
+	return (min);
+}
+
+int	ft_max(t_stack *lst)
+{
+	int	max;
+
+	max = lst->nb;
+	while (lst != NULL)
+	{
+		if (max < lst->nb)
+			max = lst->nb;
+		lst = lst->next;
+	}
+	return (max);
+}
+
+void	ft_improve(t_stack **cmd)
 {
 	t_stack	*cmp;
-	t_stack	*current;
+	t_stack	*cur;
 	t_stack	*prev;
 
 	cmp = *cmd;
 	while (cmp)
 	{
 		prev = cmp;
-		current = cmp->next;
-		while (current && (current->nb != PA && current->nb != PB))
+		cur = cmp->next;
+		while (cur && cur->nb != PA && cur->nb != PB && cur->nb != 0)
 		{
-			if (cmp->nb == current->nb + 1 || cmp->nb == current->nb - 1)
+			if (cmp->nb == cur->nb + 1 || cmp->nb == cur->nb - 1)
 			{
-				cmp->nb = cmp->nb + current->nb;
-				prev->next = ft_delone(current);
+				cmp->nb = cmp->nb + cur->nb;
+				prev->next = ft_lstdelone(cur);
 				break ;
 			}
-			current = current->next;
+			cur = cur->next;
 			prev = prev->next;
 		}
 		cmp = cmp->next;
 	}
-	return (*cmd);
 }
 
 int	ft_check_order(t_stack *lst)

@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:15:52 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/27 18:21:45 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:44:38 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,11 @@ void	ft_lstclear(t_stack **lst)
 {
 	t_stack	*tmp;
 
-	if (!lst || !*lst)
-		return ;
 	while (*lst)
 	{
 		tmp = (*lst)->next;
 		ft_lstdelone(*lst);
 		*lst = tmp;
-	}
-}
-
-void	sort_list(t_stack *lst)
-{
-	t_stack	*cmp;
-
-	while (lst->next)
-	{
-		cmp = lst->next;
-		while (cmp)
-		{
-			if (lst->nb > cmp->nb)
-				ft_swap(&lst->nb, &cmp->nb);
-			cmp = cmp->next;
-		}
-		lst = lst->next;
 	}
 }
 
@@ -59,14 +40,17 @@ t_stack	*list_inputs(int ac, char **av)
 	int		i;
 
 	stack = ft_lstnew(ft_atol(av[1]));
-	i = 2;
+	if (!stack)
+		return (NULL);
+	i = 1;
 	new = NULL;
-	while (i < ac)
+	while (++i < ac)
 	{
 		new = ft_lstnew(ft_atol(av[i]));
+		if (!new)
+			return (free(new), NULL);
 		ft_lstadd_back(&stack, new);
 		new = new->next;
-		i++;
 	}
 	new = NULL;
 	return (stack);

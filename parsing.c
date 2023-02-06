@@ -6,11 +6,37 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 10:54:30 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/27 20:21:36 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/04 16:22:29 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+long	ft_atol(char *str)
+{
+	int		i;
+	long	res;
+	int		sign;
+
+	i = 0;
+	res = 0;
+	sign = 1;
+	if (str[i] == '-')
+	{
+		i++;
+		sign = -sign;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		if (str[i] == '+' || str[i] == '-' )
+			return (2147483648);
+		res = res * 10 + str[i] - '0';
+		i++;
+	}
+	return (res * sign);
+}
 
 int	ft_micro_parsing(char *str)
 {

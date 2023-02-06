@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:44:44 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/28 18:15:14 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:44:59 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_stack	*ft_lstnew(int nb)
 
 	new = malloc(sizeof(*new));
 	if (!new)
-		return (NULL);
+		return (free(new), NULL);
 	new->nb = nb;
 	new->next = NULL;
 	return (new);

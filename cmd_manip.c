@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:43:24 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/28 19:16:15 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/06 17:00:52 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,33 +19,32 @@ void	ft_exec_cmd(t_stack **a, t_stack **b, t_stack **cmd, t_stack *cmd_sim)
 		if (cmd_sim->nb == PB)
 			ft_pb(a, b, cmd);
 		if (cmd_sim->nb == RA)
-			ft_ra(a, cmd);
+			ft_ra(a, b, cmd);
 		if (cmd_sim->nb == RB)
-			ft_rb(b, cmd);
+			ft_rb(a, b, cmd);
 		if (cmd_sim->nb == RRA)
-			ft_rra(a, cmd);
+			ft_rra(a, b, cmd);
 		if (cmd_sim->nb == RRB)
-			ft_rrb(b, cmd);
+			ft_rrb(a, b, cmd);
 		if (cmd_sim->nb == RR)
 		{
-			ft_ra(a, cmd);
-			ft_rb(b, cmd);
+			ft_ra(a, b, cmd);
+			ft_rb(a, b, cmd);
 		}
 		if (cmd_sim->nb == RRR)
 		{
-			ft_rra(a, cmd);
-			ft_rrb(b, cmd);
+			ft_rra(a, b, cmd);
+			ft_rrb(a, b, cmd);
 		}
 		cmd_sim = cmd_sim->next;
 	}
 }
 
-void	ft_free_all(t_stack **a, t_stack **b, t_stack **sorted, t_stack **cmd)
+void	ft_free_all(t_stack **a, t_stack **b, t_stack **cmd)
 {
 	ft_lstclear(cmd);
 	ft_lstclear(a);
 	ft_lstclear(b);
-	ft_lstclear(sorted);
 }
 
 void	ft_print_instr(t_stack **cmd)

@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:31:26 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/28 19:35:57 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/03 16:53:36 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ t_stack	*find_best_move(t_stack *a, t_stack *b, t_stack **cmd_sim)
 	return (*cmd_sim);
 }
 
-void	ft_new_cmd(int cmd, t_stack **stack, t_stack *new)
+void	ft_new_cmd(int cmd, t_stack **stack)
 {
+	t_stack	*new;
+
 	new = ft_lstnew(cmd);
 	ft_lstadd_back(stack, new);
 }
@@ -76,9 +78,7 @@ void	ft_a_move_nb(t_stack *current, t_stack *a, t_stack **cmd_sim)
 {
 	int		r_move;
 	int		rr_move;
-	t_stack	*new;
 
-	new = NULL;
 	rr_move = 0;
 	r_move = ft_lstsize(a);
 	while (current && current != a)
@@ -89,19 +89,17 @@ void	ft_a_move_nb(t_stack *current, t_stack *a, t_stack **cmd_sim)
 	}
 	if (rr_move < r_move)
 		while (--rr_move >= 0)
-			ft_new_cmd(RRA, cmd_sim, new);
+			ft_new_cmd(RRA, cmd_sim);
 	else
 		while (--r_move >= 0)
-			ft_new_cmd(RA, cmd_sim, new);
+			ft_new_cmd(RA, cmd_sim);
 }
 
 void	ft_b_move_nb(t_stack *current, t_stack *b, t_stack **cmd_sim)
 {
 	int		r_move;
 	int		rr_move;
-	t_stack	*new;
 
-	new = NULL;
 	rr_move = 0;
 	r_move = ft_lstsize(b);
 	while (current && current != b)
@@ -112,10 +110,10 @@ void	ft_b_move_nb(t_stack *current, t_stack *b, t_stack **cmd_sim)
 	}
 	if (rr_move < r_move)
 		while (--rr_move >= 0)
-			ft_new_cmd(RRB, cmd_sim, new);
+			ft_new_cmd(RRB, cmd_sim);
 	else
 		while (--r_move >= 0)
-			ft_new_cmd(RB, cmd_sim, new);
-	ft_new_cmd(PB, cmd_sim, new);
+			ft_new_cmd(RB, cmd_sim);
+	ft_new_cmd(PB, cmd_sim);
 	ft_improve(cmd_sim);
 }

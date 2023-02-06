@@ -1,10 +1,11 @@
 NAME = push_swap
+BONUS = checker
 SRC = 	instr_global.c \
 		instr_push_n_swap.c \
 		instr_rotates.c \
 		main.c \
-		algorithme.c \
-		algorithme_utils.c \
+		algorithm.c \
+		algorithm_utils.c \
 		list_manip.c \
 		list_manip_utils.c \
 		parsing.c \
@@ -12,20 +13,38 @@ SRC = 	instr_global.c \
 		lil_algo.c \
 		hit_number.c \
 		cmd_manip.c
+SRC_BONUS = get_next_line_utils.c \
+			checker.c \
+			algorithm_utils.c \
+			instr_global.c \
+			hit_number.c \
+			list_manip_utils.c \
+			list_manip.c \
+			get_next_line.c \
+			parsing.c
 OBJ = $(SRC:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g
+OBJ_BONUS = $(SRC_BONUS:.c=.o)
+CFLAGS = -Wall -Wextra -Werror -g -fPIE
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	gcc $(CFLAGS)  $(OBJ) -o $(NAME)
+	clang $(CFLAGS) $(OBJ) -o $(NAME)
+
+bonus: $(BONUS)
+
+$(BONUS): $(OBJ_BONUS)
+	clang $(CFLAGS) $(OBJ_BONUS) -o $(BONUS)
 
 clean:
-	rm -rf $(OBJ)
+	rm -rf $(OBJ) $(OBJ_BONUS)
 
-fclean:
-	rm -rf $(NAME)
+fclean: clean
+	rm -rf $(NAME) $(BONUS) 
 
 re: fclean all
 
-.PHONY: all clean fclean re
+# malloc_test: $(OBJ) $(OBJ_BONUS)
+# 	clang $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJ} ${OBJ_BONUS} -L.  -lmallocator
+
+.PHONY: all clean fclean re bonus

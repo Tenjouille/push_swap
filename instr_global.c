@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   global_instr.c                                     :+:      :+:    :+:   */
+/*   instr_global.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:08:03 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/01/25 09:12:02 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/04 16:24:41 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_rotate(t_stack **lst)
 {
 	t_stack	*tmp;
 
-	if (!*lst || !lst)
+	if (!*lst || !lst || !(*lst)->next)
 		return ;
 	tmp = (*lst)->next;
 	ft_lstadd_back(&tmp, *lst);
@@ -50,7 +50,7 @@ void	ft_reverse_rotate(t_stack **lst)
 	t_stack	*new_start;
 	t_stack	*new_end;
 
-	if (!*lst || !lst)
+	if (!*lst || !lst || !(*lst)->next)
 		return ;
 	new_end = *lst;
 	new_start = ft_lstlast(*lst);
