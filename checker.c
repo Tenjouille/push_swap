@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:35:54 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/02/07 18:03:25 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:59:24 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,20 @@ void	ft_execute_rotations_cmd(t_stack **a, t_stack **b, t_stack *cmd)
 
 void	ft_execute_cmd(t_stack **a, t_stack **b, t_stack *cmd)
 {
-	
-		if (cmd->nb == SA)
-			if (*a && (*a)->next)
-				ft_swap(&(*a)->nb, &(*a)->next->nb);
-		if (cmd->nb == SB)
-			if (*b && (*b)->next)
-				ft_swap(&(*b)->nb, &(*b)->next->nb);
-		if (cmd->nb == SS)
+	if (cmd->nb == SA)
+		if (*a && (*a)->next)
+			ft_swap(&(*a)->nb, &(*a)->next->nb);
+	if (cmd->nb == SB)
+		if (*b && (*b)->next)
+			ft_swap(&(*b)->nb, &(*b)->next->nb);
+	if (cmd->nb == SS)
+	{
+		if (*a && (*a)->next && *b && (*b)->next)
 		{
-			if (*a && (*a)->next && *b && (*b)->next)
-			{
-				ft_swap(&(*a)->nb, &(*a)->next->nb);
-				ft_swap(&(*b)->nb, &(*b)->next->nb);
-			}
+			ft_swap(&(*a)->nb, &(*a)->next->nb);
+			ft_swap(&(*b)->nb, &(*b)->next->nb);
 		}
+	}
 	if (cmd->nb == PA)
 		ft_push(b, a);
 	if (cmd->nb == PB)
@@ -89,7 +88,7 @@ void	ft_execute_cmd(t_stack **a, t_stack **b, t_stack *cmd)
 void	ft_scan_standard_inputs(t_stack **cmd)
 {
 	char	*buff;
-	
+
 	buff = get_next_line(0, 1);
 	while (buff)
 	{
