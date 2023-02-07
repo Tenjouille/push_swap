@@ -15,6 +15,7 @@ SRC = 	instr_global.c \
 		cmd_manip.c
 SRC_BONUS = get_next_line_utils.c \
 			checker.c \
+			checker_utils.c \
 			algorithm_utils.c \
 			instr_global.c \
 			hit_number.c \
@@ -29,12 +30,12 @@ CFLAGS = -Wall -Wextra -Werror -g -fPIE
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	clang $(CFLAGS) $(OBJ) -o $(NAME)
+	gcc $(CFLAGS) $(OBJ) -o $(NAME)
 
 bonus: $(BONUS)
 
 $(BONUS): $(OBJ_BONUS)
-	clang $(CFLAGS) $(OBJ_BONUS) -o $(BONUS)
+	gcc $(CFLAGS) $(OBJ_BONUS) -o $(BONUS)
 
 clean:
 	rm -rf $(OBJ) $(OBJ_BONUS)

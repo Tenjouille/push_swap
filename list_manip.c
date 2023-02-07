@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:15:52 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/02/06 19:44:38 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:48:11 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,11 @@ t_stack	*list_inputs(int ac, char **av)
 	}
 	new = NULL;
 	return (stack);
+}
+
+void	ft_free_all(t_stack **a, t_stack **b, t_stack **cmd)
+{
+	ft_lstclear(cmd);
+	ft_lstclear(a);
+	ft_lstclear(b);
 }

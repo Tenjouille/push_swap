@@ -6,35 +6,13 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:35:54 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/02/04 16:22:44 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:03:25 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "push_swap_bonus.h"
 #include "get_next_line.h"
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] == s2[i] && s1[i])
-		i++;
-	return (s2[i] - s1[i]);
-}
-
-int	ft_cmd_parsing(char *s)
-{
-	if (!ft_strcmp(s, "sa\n") || !ft_strcmp(s, "sb\n") || !ft_strcmp(s, "ss\n"))
-		return (1);
-	if (!ft_strcmp(s, "ra\n") || !ft_strcmp(s, "rb\n") || !ft_strcmp(s, "rr\n"))
-		return (1);
-	if (!ft_strcmp(s, "rra\n") || !ft_strcmp(s, "rrb\n") || !ft_strcmp(s, "rrr\n"))
-		return (1);
-	if (!ft_strcmp(s, "pa\n") || !ft_strcmp(s, "pb\n"))
-		return (1);
-	return (0);
-}
 
 void	ft_fill_cmd(char *str, t_stack **cmd)
 {
@@ -62,21 +40,8 @@ void	ft_fill_cmd(char *str, t_stack **cmd)
 		ft_new_cmd(RRR, cmd);
 }
 
-void	ft_execute_cmd(t_stack **a, t_stack **b, t_stack *cmd)
+void	ft_execute_rotations_cmd(t_stack **a, t_stack **b, t_stack *cmd)
 {
-	if (cmd->nb == SA)
-		ft_swap(&(*a)->nb, &(*a)->next->nb);
-	if (cmd->nb == SB)
-		ft_swap(&(*b)->nb, &(*b)->next->nb);
-	if (cmd->nb == SS)
-	{
-		ft_swap(&(*a)->nb, &(*a)->next->nb);
-		ft_swap(&(*b)->nb, &(*b)->next->nb);
-	}
-	if (cmd->nb == PA)
-		ft_push(b, a);
-	if (cmd->nb == PB)
-		ft_push(a, b);
 	if (cmd->nb == RA)
 		ft_rotate(a);
 	if (cmd->nb == RB)
@@ -97,31 +62,57 @@ void	ft_execute_cmd(t_stack **a, t_stack **b, t_stack *cmd)
 	}
 }
 
+void	ft_execute_cmd(t_stack **a, t_stack **b, t_stack *cmd)
+{
+	
+		if (cmd->nb == SA)
+			if (*a && (*a)->next)
+				ft_swap(&(*a)->nb, &(*a)->next->nb);
+		if (cmd->nb == SB)
+			if (*b && (*b)->next)
+				ft_swap(&(*b)->nb, &(*b)->next->nb);
+		if (cmd->nb == SS)
+		{
+			if (*a && (*a)->next && *b && (*b)->next)
+			{
+				ft_swap(&(*a)->nb, &(*a)->next->nb);
+				ft_swap(&(*b)->nb, &(*b)->next->nb);
+			}
+		}
+	if (cmd->nb == PA)
+		ft_push(b, a);
+	if (cmd->nb == PB)
+		ft_push(a, b);
+	ft_execute_rotations_cmd(a, b, cmd);
+}
+
+void	ft_scan_standard_inputs(t_stack **cmd)
+{
+	char	*buff;
+	
+	buff = get_next_line(0, 1);
+	while (buff)
+	{
+		if (!ft_cmd_parsing(buff))
+			ft_quit_prog(buff, cmd);
+		ft_fill_cmd(buff, cmd);
+		free (buff);
+		buff = get_next_line(0, 1);
+	}
+	free (buff);
+}
+
 int	main(int ac, char **av)
 {
 	t_stack	*cmd;
 	t_stack	*a;
 	t_stack	*b;
 	t_stack	*new;
-	char	*buff;
 
 	if (!ft_parsing(ac, av) || ac == 1)
 		return (0);
 	cmd = NULL;
-	buff = get_next_line(0);
-	while (buff)
-	{
-		if (!ft_cmd_parsing(buff))
-		{
-			free (buff);
-			ft_lstclear(&cmd);
-			return (write(2, "Error\n", 6), 0);
-		}
-		ft_fill_cmd(buff, &cmd);
-		free (buff);
-		buff = get_next_line(0);
-	}
-	free (buff);
+	ft_scan_standard_inputs(&cmd);
 	new = cmd;
 	a = list_inputs(ac, av);
 	b = NULL;
@@ -130,14 +121,7 @@ int	main(int ac, char **av)
 		ft_execute_cmd(&a, &b, new);
 		new = new->next;
 	}
-	ft_lstclear(&cmd);
 	if (ft_check_order(a) && b == NULL)
-	{
-		ft_lstclear(&a);
-		ft_lstclear(&b);
-		return (write(1, "OK\n", 3));
-	}
-	ft_lstclear(&a);
-	ft_lstclear(&b);
-	return (write(1, "KO\n", 3), 0);
+		return (ft_free_all(&a, &b, &cmd), write(1, "OK\n", 3), 0);
+	return (ft_free_all(&a, &b, &cmd), write(1, "KO\n", 3), 0);
 }

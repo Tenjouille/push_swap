@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:43:24 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/02/06 17:00:52 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:48:18 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,6 @@ void	ft_exec_cmd(t_stack **a, t_stack **b, t_stack **cmd, t_stack *cmd_sim)
 		}
 		cmd_sim = cmd_sim->next;
 	}
-}
-
-void	ft_free_all(t_stack **a, t_stack **b, t_stack **cmd)
-{
-	ft_lstclear(cmd);
-	ft_lstclear(a);
-	ft_lstclear(b);
 }
 
 void	ft_print_instr(t_stack **cmd)

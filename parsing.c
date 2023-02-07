@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 10:54:30 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/02/04 16:22:29 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:15:53 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,21 @@ long	ft_atol(char *str)
 int	ft_micro_parsing(char *str)
 {
 	int		i;
+	int		count;
 	long	nb;
 
+	count = 0;
 	i = 0;
 	while (str[i])
 	{
 		if ((str[i] > '9' || str[i] < '0') && str[i] != '+' && str[i] != '-')
 			return (0);
+		if (str[i] == '0')
+			count++;
 		i++;
 	}
+	if (i - count > 10)
+		return (0);
 	if (str[i - 1] == '-' || str[i - 1] == '+')
 		return (0);
 	nb = ft_atol(str);

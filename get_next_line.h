@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 18:02:58 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/02/06 14:48:43 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:33:19 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #  define BUFFER_SIZE 1
 # endif
 
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, int flag);
 char	*ft_newline(char *arch, int size);
 char	*ft_row(char *arch);
 int		ft_gotcha(char *arch);

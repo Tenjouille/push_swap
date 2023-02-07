@@ -6,7 +6,7 @@
 /*   By: tbourdea <tbourdea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 18:02:10 by tbourdea          #+#    #+#             */
-/*   Updated: 2023/02/06 15:30:34 by tbourdea         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:33:48 by tbourdea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,15 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (s3);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int flag)
 {
 	ssize_t		size;
 	static char	*arch;
 	char		*buff;
 
 	size = 1;
+	if (!flag)
+		return (free(arch), NULL);
 	while (size != 0 && (!ft_gotcha(arch)))
 	{
 		buff = ft_empty_str(BUFFER_SIZE);
