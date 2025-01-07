@@ -72,7 +72,7 @@ Les opérations suivantes peuvent être utilisées pour manipuler les piles :
 
 ## Algorithme utilisé
 
-Plusieurs approches sont possible pour réaliser ce projet.
+Plusieurs approches sont possible pour réaliser ce projet. Parmi les plus courantes, on retrouve :
 
 - [Le radix sort](https://medium.com/nerd-for-tech/push-swap-tutorial-fa746e6aba1e)
 - [L'insertion sort](https://en.wikipedia.org/wiki/Insertion_sort)
